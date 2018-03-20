@@ -35,13 +35,8 @@ public class Client {
 		        
 		         
 		        System.out.println("Ergebnis: "+einspeichern);
-		        //einspeichern = in.readLine();
-		        
-		        //System.out.println(einspeichern);
 		        bw.write(einspeichern); 
-		        
-		        
-		        
+		   
 		    //------------------------Ausgabe------------------------------------------------------------
 		        System.out.println("Ergebnis: " + in.readLine());
 		    //-------------------------------------------------------------------------------------------
