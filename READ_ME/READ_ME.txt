@@ -4,6 +4,8 @@ würde ich mir die Note: 7 für dieses Projekt geben!
 
 Hier sind noch wichtige Rückmeldungen und Informationen:
 
+INFO: Diagramme können sich bei Fehler mit den originalen Prorammen überschneiden.
+
 Übung_1: Funktioniert einwandfrei
 
 Übung_2:Funktioniert einwandfrei
@@ -17,13 +19,15 @@ Passwort: 123;
 
 Übung_4: Funktioniert einwandfrei
 
-Übung_5: Funktioniert aber in dieser Übung kann man keinen Pfad übergeben! der Pfad muss manuell eingegeben werden.
+Übung_5: Funktioniert 
+
+INFO:n dieser Übung kann man keinen Pfad übergeben! der Pfad muss manuell eingegeben werden.
 
 Übung_6: Funktioniert einwandfrei
 
 Übung_7:
 
-Übung_8:
+Übung_8:Funktioniert teilweise, einige Methoden wurden vom Internet hergenommen, die ich aber verstehe.
 
 
 
