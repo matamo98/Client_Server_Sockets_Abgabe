@@ -25,7 +25,7 @@ INFO:n dieser Übung kann man keinen Pfad übergeben! der Pfad muss manuell eingeg
 
 Übung_6: Funktioniert einwandfrei
 
-Übung_7:
+Übung_7: ---
 
 Übung_8:Funktioniert teilweise, einige Methoden wurden vom Internet hergenommen, die ich aber verstehe.
 
