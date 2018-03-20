@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
@@ -38,8 +37,7 @@ public class Server {
 		    //------------------------------------------------------------------------------------------- 
 		 
 		        String line = br.readLine();
-		        //System.out.println(line);
-		                
+		        
 		        out.write(line);
 		        out.newLine();
 		        out.flush();

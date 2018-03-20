@@ -31,47 +31,51 @@ public class Server{
 			username = in.readLine();
 			password = in.readLine();
 			//-------------------------------------------------------------------------------------------
+			try {
 			
-			if(username.equals("user") && password.equals("123")){
-				out.write("genehmigt"); //Zugangscode
-				out.newLine();
-				out.flush();
-				
-				operation  = in.readLine();
-				ersteZahl  = Integer.parseInt(in.readLine());
-				zweiteZahl = Integer.parseInt(in.readLine());
-				
-				switch(operation){
-					case "+":
-						result = ersteZahl + zweiteZahl;
-					break;
+				if(username.equals("user") && password.equals("123")){
+					out.write("genehmigt"); //Zugangscode
+					out.newLine();
+					out.flush();
 					
-					case "-":
-						result = ersteZahl - zweiteZahl;
-					break;
+					operation  = in.readLine();
+					ersteZahl  = Integer.parseInt(in.readLine());
+					zweiteZahl = Integer.parseInt(in.readLine());
 					
-					case "*":
-						result = ersteZahl * zweiteZahl;
-					break;
+					switch(operation){
+						case "+":
+							result = ersteZahl + zweiteZahl;
+						break;
+						
+						case "-":
+							result = ersteZahl - zweiteZahl;
+						break;
+						
+						case "*":
+							result = ersteZahl * zweiteZahl;
+						break;
+						
+						case "/":
+							result = ersteZahl / zweiteZahl;
+						break;
+						
+						default: break;
+					}
 					
-					case "/":
-						result = ersteZahl / zweiteZahl;
-					break;
-					
-					default: break;
+					out.write(Integer.toString(result));
+					out.newLine();
+					out.flush();
 				}
 				
-				out.write(Integer.toString(result));
-				out.newLine();
-				out.flush();
-				
-				//in.readLine();
+				else{
+					out.write("Verbindung verweigert!");
+					out.newLine();
+					out.flush();
+				}
 			}
 			
-			else{
-				out.write("Verbindung verweigert!");
-				out.newLine();
-				out.flush();
+			catch(NumberFormatException  e) {
+				System.out.println("FEHLER: Client hat nichts übergeben!"); //Fehlermeldung
 			}
 			
 			in.close();

@@ -9,95 +9,96 @@ public class Client{
 		
 		//------------------------stream-------------------------------------------------------------
 		ObjectOutputStream out = new ObjectOutputStream(SOCKET.getOutputStream());
-		ObjectInputStream IN = new ObjectInputStream(SOCKET.getInputStream());
-		BufferedReader DATEN = new BufferedReader(new InputStreamReader(System.in));
+		ObjectInputStream in = new ObjectInputStream(SOCKET.getInputStream());
+		BufferedReader daten = new BufferedReader(new InputStreamReader(System.in));
 		//-------------------------------------------------------------------------------------------
 		
-		byte[][] FELD = new byte[6][7]; //Spielfeld Array -> 6 x 7 größe
+		byte[][] gamefield = new byte[6][7]; //Spielfeld Array -> 6 x 7 größe
 		
-		int ZUG;
+		int spielZug;
 		int endresult = 0;
-		int COUNT = 0;
+		int zaehler = 0;
 		
 		//------------------------Ausgabe-des-Spielfeldes------------------------------------------
 		while(endresult == 0){
 			
 			for(int i = 0; i < 6; i++){
 				for(int j = 0; j < 7; j++){
-					System.out.print(FELD[i][j]);
+					System.out.print(gamefield[i][j]);
 					System.out.print(" ");
 				}
 				System.out.println(" ");
 			}
 		//------------------------Abfragen-des-Spielzugs---------------------------------------------
 			System.out.print("Geben sie eine Zahl von 1 bis 7 ein!");
-			ZUG = Integer.parseInt(DATEN.readLine()) - 1;
+			spielZug = Integer.parseInt(daten.readLine()) - 1;
 			
-			for(int COUNTER = 5; COUNTER >= 0; COUNTER--){
+			for(int i = 5; i >= 0; i--){
 					
-				if(FELD[COUNTER][ZUG] == 0){ //7;1;
-					FELD[COUNTER][ZUG] = 1;
-					//System.out.println(FELD[COUNTER][ZUG]);
+				if(gamefield[i][spielZug] == 0){ //7;1;
+					gamefield[i][spielZug] = 1;
 					break; //damit die For schleife sich beendet
 				}
 			}
 		//-------------------------------------------------------------------------------------------
 		
-			out.writeObject(FELD); //sendet bzw speichert ganzes Array / Objekt in out
+			out.writeObject(gamefield); //sendet bzw speichert ganzes Array / Objekt in out
 			
-			FELD = (byte[][]) IN.readObject(); //bekommt Objekt von Server
+			gamefield = (byte[][]) in.readObject(); //bekommt Objekt von Server
 			
 			for(int i = 0; i < 6; i++){
 				for(int j = 0; j < 7; j++){
-					if(FELD[i][j] != 0){
-						COUNT++;
+					if(gamefield[i][j] != 0){
+						zaehler++;
 					}
 				}
 			}
 			
-			if(COUNT == 42){
+			if(zaehler == 28){ //Unentschieden
 				endresult = 3;
 			}
+			
+			//------------------------Senkrecht-----------------------------------------------------------------------
+			for(int i = 0; i < 3; i++){
+				
+				for(int j = 0; j < 6; j++){
+					if(gamefield[i][j] == 1 && gamefield[i + 1][j] == 1 && gamefield[i + 2][j] == 1 && gamefield[i + 3][j] == 1){
+						endresult = 1;
+					}
+					
+					else if(gamefield[i][j] == 2 && gamefield[i + 1][j] == 2 && gamefield[i + 2][j] == 2 && gamefield[i + 3][j] == 2){
+						endresult = 2;
+					}
+				}
+			}
+			//--------------------------------------------------------------------------------------------------------
 			
 			//------------------------Waagrecht-----------------------------------------------------------------------
 			for(int i = 0; i < 6; i++){
 				
 				for(int j = 0; j < 4; j++){
-					if(FELD[i][j] == 1 && FELD[i][j + 1] == 1 && FELD[i][j + 2] == 1 && FELD[i][j + 3] == 1){
+					if(gamefield[i][j] == 1 && gamefield[i][j + 1] == 1 && gamefield[i][j + 2] == 1 && gamefield[i][j + 3] == 1){
 						endresult = 1;
 					}
 					
-					else if(FELD[i][j] == 2 && FELD[i][j + 1] == 2 && FELD[i][j + 2] == 2 && FELD[i][j + 3] == 2){
+					else if(gamefield[i][j] == 2 && gamefield[i][j + 1] == 2 && gamefield[i][j + 2] == 2 && gamefield[i][j + 3] == 2){
 						endresult = 2;
 					}
 				}
 			}
 			//--------------------------------------------------------------------------------------------------------
 			
-			//------------------------Senkrecht-----------------------------------------------------------------------
-			for(int i = 0; i < 4; i++){
-				
-				for(int j = 0; j < 6; j++){
-					if(FELD[i][j] == 1 && FELD[i + 1][j] == 1 && FELD[i + 2][j] == 1 && FELD[i + 3][j] == 1){
-						endresult = 1;
-					}
-					
-					else if(FELD[i][j] == 2 && FELD[i + 1][j] == 2 && FELD[i + 2][j] == 2 && FELD[i + 3][j] == 2){
-						endresult = 2;
-					}
-				}
-			}
-			//--------------------------------------------------------------------------------------------------------
+			
 			
 			//------------------------Diagonal-Rechts-----------------------------------------------------------------------
 			for(int i = 0; i < 3; i++){
 				for(int j = 0; j < 4; j++){
 					
-					if(FELD[i][j] == 1 && FELD[i + 1][j + 1] == 1 && FELD[i + 2][j + 2] == 1 && FELD[i + 3][j + 3] == 1){
+					if(gamefield[i][j] == 1 && gamefield[i + 1][j + 1] == 1 && gamefield[i + 2][j + 2] == 1 && gamefield[i + 3][j + 3] == 1){
 						endresult = 1;
 					}
 					
-					else if(FELD[i][j] == 2 && FELD[i + 1][j + 1] == 2 && FELD[i + 2][j + 2] == 2 && FELD[i + 3][j + 3] == 2){
+					else if(gamefield[i][j] == 2 && gamefield[i + 1][j + 1] == 2 && gamefield[i + 2][j + 2] == 2 && gamefield[i + 3][j + 3] == 2){
 						endresult = 2;
 					}
 				}
@@ -105,14 +106,14 @@ public class Client{
 			//------------------------------------------------------------------------------------------------------------
 			
 			//------------------------Diagonal-Links-----------------------------------------------------------------------
-			for(int Y = 0; Y < 3; Y++){
-				for(int X = 3; X < 7; X++){
+			for(int i = 0; i < 3; i++){
+				for(int j = 3; j < 7; j++){
 					
-					if(FELD[Y][X] == 1 && FELD[Y + 1][X - 1] == 1 && FELD[Y + 2][X - 2] == 1 && FELD[Y + 3][X - 3] == 1){
+					if(gamefield[i][j] == 1 && gamefield[i + 1][j - 1] == 1 && gamefield[i + 2][j - 2] == 1 && gamefield[i + 3][j - 3] == 1){
 						endresult = 1;
 					}
 					
-					else if(FELD[Y][X] == 2 && FELD[Y + 1][X - 1] == 2 && FELD[Y + 2][X - 2] == 2 && FELD[Y + 3][X - 3] == 2){
+					else if(gamefield[i][j] == 2 && gamefield[i + 1][j - 1] == 2 && gamefield[i + 2][j - 2] == 2 && gamefield[i + 3][j - 3] == 2){
 						endresult = 2;
 					}
 				}
@@ -121,25 +122,25 @@ public class Client{
 			
 			if(endresult == 1){
 				System.out.println("Sie haben gewonnen!");
-				out.writeObject(FELD);
+				out.writeObject(gamefield);
 				break;
 			}
 			
 			else if(endresult == 2){
 				System.out.println("Sie haben verloren!");
-				out.writeObject(FELD);
+				out.writeObject(gamefield);
 				break;
 			}
 			
 			else if(endresult == 3){
 				System.out.println("Feld ist voll!");
-				out.writeObject(FELD);
+				out.writeObject(gamefield);
 				break;
 			}
 		}
 		
 		out.close();
-		IN.close();
+		in.close();
 		SOCKET.close();
 	}
 }

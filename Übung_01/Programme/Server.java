@@ -11,48 +11,60 @@ public class Server{
 	public static void main(String[] args){
 		
 		try {
+			//------------------------server-socket-start------------------------------------------------
 			ServerSocket server = new ServerSocket(1111);
-			
 			System.out.println("Server wurde gestartet");
+			//-------------------------------------------------------------------------------------------
 			
-			// Server wartet bis ein Client sich verbindet
+			//------------------------server-socket-start------------------------------------------------
 			Socket client = server.accept(); 
-		
-			//Streams für Ein-und Ausgabe
+			//-------------------------------------------------------------------------------------------
+			
+			//------------------------stream-------------------------------------------------------------
 			BufferedReader in 	= new BufferedReader(new InputStreamReader(client.getInputStream()));
 			BufferedWriter out 	= new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+			//-------------------------------------------------------------------------------------------
 			
-			//Hier bekommen die Variablen durch den Client einen Wert 
-			operation  = in.readLine();
-			ersteZahl  = Integer.parseInt(in.readLine());
-			zweiteZahl = Integer.parseInt(in.readLine());
+			try {		
+			//------------Hier bekommen die Variablen durch den Client einen Wert------------------------ 
+				operation  = in.readLine();
+				ersteZahl  = Integer.parseInt(in.readLine());
+				zweiteZahl = Integer.parseInt(in.readLine());
+			//-------------------------------------------------------------------------------------------
 			
-			//Abfrage der Operationen
-			switch(operation){
-				
-				case "+":
-					result = ersteZahl + zweiteZahl;
-				break;
+			
+			//--------------Abfrage der Operationen------------------------------------------------------
+				switch(operation){
 					
-				case "-":
-					result = ersteZahl - zweiteZahl;
-				break;
-					
-				case "*":
-					result = ersteZahl * zweiteZahl;
-				break;
-					
-				case "/":
-					result = ersteZahl / zweiteZahl;
-				break;
-					
-				default: break; //Falls nicht dergleichen passt, soll die Schleife beendet werden
-			}
-				
-				out.write(Integer.toString(result));
-				out.newLine();
+					case "+":
+						result = ersteZahl + zweiteZahl;
+					break;
+						
+					case "-":
+						result = ersteZahl - zweiteZahl;
+					break;
+						
+					case "*":
+						result = ersteZahl * zweiteZahl;
+					break;
+						
+					case "/":
+						result = ersteZahl / zweiteZahl;
+					break;
+						
+					default: break; //Falls nichts dergleichen passt, soll die Schleife beendet werden
+				}
+			//-------------------------------------------------------------------------------------------
+			
+				out.write(Integer.toString(result)); //Ergebnis wird gespeichert
+				out.newLine(); //neue Zeile
 				out.flush();
+			}
 			
+			catch (NumberFormatException e) {
+				System.out.println("Client hat nichts übergeben!"); //Fehlermeldung
+			}
+
 			in.close(); //Reader Default Klasse wird beendet
 			out.close(); //Writer Default Klasse wird beendet
 			client.close(); //Client wird beendet

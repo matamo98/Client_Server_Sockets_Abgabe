@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -27,6 +28,19 @@ public class Client {
 		        out.newLine();
 		        out.flush();
 		    //-------------------------------------------------------------------------------------------
+		        
+		        FileWriter fw = new FileWriter("Save_URL.txt");
+		        BufferedWriter bw = new BufferedWriter(fw);
+		        String einspeichern = in.readLine();
+		        
+		         
+		        System.out.println("Ergebnis: "+einspeichern);
+		        //einspeichern = in.readLine();
+		        
+		        //System.out.println(einspeichern);
+		        bw.write(einspeichern); 
+		        
+		        
 		        
 		    //------------------------Ausgabe------------------------------------------------------------
 		        System.out.println("Ergebnis: " + in.readLine());

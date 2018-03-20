@@ -8,6 +8,12 @@ public class Client{
 		String anfrage="denide"; //Default Wert
 		
 		try {
+			/* IP ADRESSE (localHost) des Client wird bei der Verbindung mit-übertragen, 
+			 * damit der Server weiß, welcher Client an welchem Port hängt.
+			 * 
+			 * An diesem Port 1111 soll eine Verbindung zwischen Client und Server aufgebaut werden.
+			 * 
+			 */
 			//------------------------client-socket-start------------------------------------------------
 			Socket client = new Socket("localhost", 2222);
 			System.out.println("Client wurde gestartet");
@@ -21,6 +27,7 @@ public class Client{
 			//-------------------------------------------------------------------------------------------
 			
 			try {
+				
 				System.out.print("Benutzer: ");
 				out.write(daten.readLine()); //Eingabe durch den Bildschirm / Konsole
 				out.newLine(); //
